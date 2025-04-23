@@ -1,0 +1,12 @@
+body {
+    overflow: hidden;
+    background-color: #494949;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; Set the body to take up the full height of the viewport */
+}
+
+canvas {
+    background-color: #ffff;
+}
