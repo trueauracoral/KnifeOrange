@@ -1,3 +1,8 @@
+let rotationCoords = {x: 307, y: 314};
+
+let knifeWidth = 27
+let knifeHeight = 137
+
 class knife { 
     constructor(pos) {
         this.pos = pos;
@@ -8,7 +13,18 @@ class knife {
     };
 
     draw() {
-        ctx.drawImage(knifeIMG, this.pos.x, this.pos.y)
+        const rotationPointX = rotationCoords.x;
+        const rotationPointY = rotationCoords.y;
+        const angleInDegrees = 45;
+        const angleInRadians = angleInDegrees * Math.PI / 180;
+      
+        ctx.save();
+        ctx.translate(rotationPointX, rotationPointY);
+        ctx.rotate(angleInRadians);
+        ctx.drawImage(knifeIMG, -knifeWidth/2, -knifeHeight/2);
+        ctx.translate(-this.pos.x, -this.pos.y);
+
+        ctx.restore();
     };
 }
 function loadImage(src) {
@@ -31,7 +47,6 @@ const halfHeight = canvas.height / 2;
 
 const Knife = new knife(vec2(halfWidth - knifeIMG.width / 2, halfHeight-40), vec2(5,5), 15)
 
-
 function startGame() {
     gameLoop();
 }
@@ -53,10 +68,13 @@ function vec2(x, y) {
 
 function gameUpdate() {
     Knife.update();
+    
 }
 
 function gameDraw() {
     Knife.draw();
+    ctx.fillStyle = "red";
+    ctx.fillRect(rotationCoords.x, rotationCoords.y, 10, 10)
 }
 
 function gameLoop() {
